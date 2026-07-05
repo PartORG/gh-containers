@@ -1,128 +1,94 @@
-# PartORG/gh-containers
+# gh-containers
 
-**A Node.js backend for managing containerized applications with MongoDB and Express**
-
-[![Node.js](https://img.shields.io/badge/node.js-16.x-blue.svg)] [![License](https://img.shields.io/badge/license-ISC-green.svg)] [![Tests](https://img.shields.io/github/actions/workflow/status/PartORG/gh-containers/deploy.yml?branch=main&label=tests)] [![Docker](https://img.shields.io/docker/pulls/partorg/gh-containers)] [![GitHub stars](https://img.shields.io/github/stars/PartORG/gh-containers?style=social)]
-
-## Introduction
-
-`gh-containers` is a robust Node.js backend designed to manage containerized applications using MongoDB and Express. It provides a scalable and efficient solution for developers looking to build modern web applications with ease.
-
-This project aims to simplify the development process by offering a pre-configured environment, comprehensive testing, and easy deployment options. Whether you're building a microservices architecture or a monolithic application, `gh-containers` has got you covered.
+A backend application built with JavaScript and Express.js, designed to interact with MongoDB for data storage. This project includes automated testing using Playwright and is containerized using Docker.
 
 ## Table of Contents
-
-- [Features](#features)
-- [How It Works](#how-it-works)
-- [Technology Stack](#technology-stack)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Quick Start](#quick-start)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Development](#development)
-- [Testing](#testing)
-- [Limitations](#limitations)
-- [License](#license)
+1. [Features](#features)
+2. [How It Works](#how-it-works)
+3. [Technology Stack](#technology-stack)
+4. [Requirements](#requirements)
+5. [Installation](#installation)
+6. [Configuration](#configuration)
+7. [Quick Start](#quick-start)
+8. [Usage](#usage)
+9. [Project Structure](#project-structure)
+10. [Development](#development)
+11. [Testing](#testing)
+12. [Limitations](#limitations)
+13. [License](#license)
 
 ## Features
+### Express.js
+- **What it does:** Handles routing and request handling for the application.
+- **Why it exists:** Provides a robust framework for building web applications in Node.js.
+- **Why it is useful:** Simplifies the process of creating scalable and maintainable backend services.
 
-### 1. Express Framework
-**What it does:** Provides a robust framework for building web applications and APIs.
-**Why it exists:** Simplifies the development process by abstracting common tasks.
-**Why it is useful:** Enables developers to focus on business logic rather than infrastructure.
-
-### 2. MongoDB Integration
-**What it does:** Manages data storage and retrieval using MongoDB.
-**Why it exists:** Offers a scalable and flexible database solution.
-**Why it is useful:** Provides high performance and easy querying capabilities.
-
-### 3. Docker Support
-**What it does:** Containerizes the application for consistent deployment across environments.
-**Why it exists:** Ensures consistency and ease of deployment.
-**Why it is useful:** Simplifies the development and production workflows.
+### MongoDB
+- **What it does:** Manages data storage and retrieval.
+- **Why it exists:** Offers high performance, high availability, and automatic scaling.
+- **Why it is useful:** Provides a flexible schema for storing complex data structures.
 
 ## How It Works
-
-`gh-containers` follows a modular architecture, with each component responsible for specific tasks. The main components are:
-
-- **Express Server**: Handles incoming HTTP requests and routes them to appropriate handlers.
-- **MongoDB Database**: Stores application data using MongoDB's flexible schema design.
-- **Docker Containerization**: Packages the application and its dependencies into a container for easy deployment.
+The application uses Express.js to define routes and handle incoming requests. MongoDB is used to store and retrieve data. The Dockerfile sets up the environment with Node.js 16 and installs dependencies from `package.json`.
 
 ## Technology Stack
 
 | Technology | Purpose |
 |------------|---------|
-| Node.js    | Runtime environment for JavaScript applications. |
-| Express    | Web framework for building APIs and web applications. |
-| MongoDB    | NoSQL database for storing application data. |
-| Docker     | Containerization platform for packaging and deploying applications. |
+| **Node.js** | Runtime environment for executing JavaScript code on the server side. |
+| **Express.js** | Framework for building web applications in Node.js. |
+| **MongoDB** | NoSQL database for storing and retrieving data. |
+| **Playwright** | End-to-end testing framework for modern web applications. |
 
 ## Requirements
-
-- **Node.js**: Version 16.x
-- **Docker**: For containerized deployment (optional)
+- Node.js 16 or higher
+- MongoDB instance
 
 ## Installation
-
-To install `gh-containers`, follow these steps:
+To install the project, follow these steps:
 
 ```bash
-# Clone the repository
 git clone https://github.com/PartORG/gh-containers.git
-
-# Navigate to the project directory
 cd gh-containers
-
-# Install dependencies
 npm install
 ```
 
 ## Configuration
+The following environment variables are used:
 
-The following environment variables can be configured in a `.env` file or directly in the Dockerfile:
+- `MONGODB_CONNECTION_PROTOCOL`: Protocol for connecting to MongoDB.
+- `MONGODB_DB_NAME`: Name of the database.
+- `MONGODB_CLUSTER_ADDRESS`: Address of the MongoDB cluster.
+- `MONGODB_USERNAME`: Username for authenticating with MongoDB.
+- `MONGODB_PASSWORD`: Password for authenticating with MongoDB.
 
-- `MONGODB_CONNECTION_PROTOCOL`: MongoDB connection protocol (default: `mongodb+srv`)
-- `MONGODB_DB_NAME`: Name of the database (default: `gha-demo1`)
-- `MONGODB_CLUSTER_ADDRESS`: Address of the MongoDB cluster (default: `cluster0.ntrwp.mongodb.net`)
-- `MONGODB_USERNAME`: Username for MongoDB authentication
-- `MONGODB_PASSWORD`: Password for MongoDB authentication
+These variables can be set in a `.env` file or directly in your environment.
 
 ## Quick Start
-
 To start the application, run:
 
 ```bash
 npm run start
 ```
 
-This will start the Express server and connect to the MongoDB database.
-
-## Usage
-
-Here are some example commands and usage scenarios:
-
-### Starting the Application
-
-```bash
-npm run start
-```
-
-### Running Tests
+To run tests, use:
 
 ```bash
 npm run test
 ```
 
-### Accessing the API
+## Usage
+Here are some example commands and usage scenarios:
 
-You can access the API endpoints using tools like `curl` or Postman. For example, to get a list of events:
+- **Starting the server:**
+  ```bash
+  npm start
+  ```
 
-```bash
-curl http://localhost:3000/events
-```
+- **Running tests:**
+  ```bash
+  npm run test
+  ```
 
 ## Project Structure
 
@@ -138,38 +104,24 @@ curl http://localhost:3000/events
 ├── package-lock.json
 ├── package.json
 ├── playwright.config.js
-└── routes/events.js
+├── routes/events.js
+└── tests/events-api.spec.js
 ```
 
-- **app.js**: Main entry point of the application.
-- **data/database.js**: Handles database connection and operations.
-- **routes/events.js**: Defines API endpoints for managing events.
+- **app.js:** Main entry point of the application.
+- **data/database.js:** Handles database operations using MongoDB.
+- **routes/events.js:** Defines routes for handling events.
+- **tests/events-api.spec.js:** Contains test cases for the API endpoints.
 
 ## Development
-
-To contribute to `gh-containers`, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/AmazingFeature`).
-3. Make your changes and commit them (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the branch (`git push origin feature/AmazingFeature`).
-5. Open a pull request.
+The development workflow involves setting up a Node.js environment, installing dependencies, and running tests. The Dockerfile automates this process by building an image with all necessary dependencies installed.
 
 ## Testing
-
-Tests are written using Playwright for end-to-end testing:
-
-```bash
-npm run test
-```
-
-This will execute all tests defined in the `tests/events-api.spec.js` file.
+Automated testing is performed using Playwright. Test cases are located in `tests/events-api.spec.js`.
 
 ## Limitations
-
-- **MongoDB Atlas**: The project uses MongoDB Atlas, which may have limitations based on the free tier.
-- **Docker Deployment**: While Docker is supported, it requires Docker to be installed and configured.
+- The application assumes MongoDB is accessible at the specified connection string.
+- No authentication mechanism is implemented for accessing the API endpoints.
 
 ## License
-
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC license.
